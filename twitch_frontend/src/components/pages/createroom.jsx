@@ -21,7 +21,7 @@ const HomePage = () => {
       <div className="pl-10 pt-10 pb-10">
         <FaPlusCircle
           className="text-4xl text-purple-800 cursor-pointer transition-colors duration-300 hover:text-white" 
-          onClick={toggleFunction} 
+          onClick={toggleFunction}
         />
       </div>
       <div className={`transition-opacity duration-300 ease-in-out ${showIcon ? 'opacity-100' : 'opacity-0'}`}>
