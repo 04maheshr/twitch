@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 
 const HomePage = () => {
   const [showIcon, setIcon] = useState(false);
+  const navigate = useNavigate();
 
   const toggleFunction = () => {
     setIcon((prev) => !prev);
