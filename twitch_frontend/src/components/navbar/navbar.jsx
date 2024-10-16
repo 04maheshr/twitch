@@ -13,7 +13,7 @@ const Navbar = () => {
       <div>
         <ul className="flex space-x-8 mr-3">
           <li className="text-white">
-            <Link to="/">Home</Link> {/* Corrected to forward slash */}
+            <Link to="/homepage">Home</Link> {/* Corrected to forward slash */}
           </li>
           <li className="text-white">
             <Link to="/settings">settings</Link> {/* Corrected to forward slash */}
