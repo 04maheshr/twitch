@@ -13,7 +13,11 @@ const HomePage = () => {
 
   const someFunction = () => {
     console.log("Go to meeting room");
-    navigate("/invite");
+    navigate("/createroom");
+  };
+  const Joinfunc = () => {
+    console.log("Go to meeting room");
+    navigate("/join");
   };
 
   return (
@@ -32,6 +36,12 @@ const HomePage = () => {
               onClick={someFunction}
             >
               Create Meeting
+            </button>
+            <button 
+              className="text-white bg-purple-800 hover:bg-purple-600 transition duration-300 ease-in-out p-2 rounded ml-2" 
+              onClick={Joinfunc} // function for joining yt to write it 
+            >
+              Join Room 
             </button>
           </div>
         )}

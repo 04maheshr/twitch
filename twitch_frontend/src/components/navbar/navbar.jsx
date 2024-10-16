@@ -16,7 +16,7 @@ const Navbar = () => {
             <Link to="/">CreateRoom</Link> {/* Corrected to forward slash */}
           </li>
           <li className="text-white">
-            <Link to="/invite">Invite</Link> {/* Corrected to forward slash */}
+            <Link to="/settings">settings</Link> {/* Corrected to forward slash */}
           </li>
         </ul>
       </div>
