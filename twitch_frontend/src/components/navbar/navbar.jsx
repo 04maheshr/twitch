@@ -1,11 +1,20 @@
 import { BsTwitch } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate(); 
+  const remo=()=>{
+    console.log("user session has been removed ");
+    localStorage.removeItem("userToken");
+    window.location.reload();
+
+    
+  }
   return (
     <div className="container flex justify-between p-4  bg-navbargrey">
       <div>
-        <Link to="/"> {/* Make the Twitch icon a home link */}
+        <Link to="/homepage"> {/* Make the Twitch icon a home link */}
           <BsTwitch className="text-4xl text-white" />
         </Link>
       </div>
@@ -18,6 +27,7 @@ const Navbar = () => {
           <li className="text-white">
             <Link to="/settings">settings</Link> {/* Corrected to forward slash */}
           </li>
+          <li><button onClick={remo} className="text-white"> logout </button></li>
         </ul>
       </div>
     </div>

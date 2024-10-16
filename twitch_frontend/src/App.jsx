@@ -21,7 +21,7 @@ const App = () => {
           </div>
         </Router>
       ) : (
-        <Login setUserToken={setUserToken}/>
+        <Login setUserToken= {setUserToken}/>
       )}
     </div>
   );
