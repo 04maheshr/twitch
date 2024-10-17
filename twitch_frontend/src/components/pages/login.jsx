@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const Login = () => {
   const { setUserToken, setAccessToken } = useContext(UserContext);
   const navigate = useNavigate();
-  const location = useLocation(); // Get current URL and query params
+  const location = useLocation();
 
   const CLIENT_ID = "5yo6ymvaacda7679fed23c153eomoe";
   const CLIENT_SECRET = "d3byprdv4y0kvnzjzze76s9nasg47u";
@@ -16,7 +16,7 @@ const Login = () => {
     "chat:edit chat:read channel:manage:broadcast channel:read:stream_key clips:edit channel:manage:videos"
   );
 
-  // Exchange the authorization code for an access token
+  // Exchange authorization code for an access token
   const exchangeCodeForToken = async (code) => {
     console.log("Attempting to exchange code for token:", code);
 
@@ -29,11 +29,13 @@ const Login = () => {
         body: new URLSearchParams({
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
-          code,
+          code: code.trim(), // Ensure code is clean
           grant_type: "authorization_code",
           redirect_uri: REDIRECT_URI,
         }),
       });
+
+      console.log("Token exchange response status:", response.status);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -43,38 +45,41 @@ const Login = () => {
 
       const data = await response.json();
       console.log("Access token data received:", data);
+
       setUserToken(true);
       setAccessToken(data.access_token);
-      navigate("/"); // Redirect to homepage after successful login
+      
+
+      
     } catch (error) {
       console.error("Fetch error:", error);
     }
   };
 
-  // UseEffect to capture and debug the code in the URL query params
+  // UseEffect to fetch the authorization code from URL query params
   useEffect(() => {
-    console.log("Location Object:", location); // Debug: Print the location object
-    console.log("Window location:", window.location.href); // Debug: Print full URL
+    console.log("Location object:", location); // Debugging the location object
+    console.log("Window location:", window.location.href); // Check if URL is correct
 
-    const fetchCodeWithDelay = () => {
-      const queryParams = new URLSearchParams(window.location.search);
-      const code = queryParams.get("code");
+    const queryParams = new URLSearchParams(window.location.search);
+    const code = queryParams.get("code");
 
-      console.log(code ? `Code from URL: ${code}` : "No code found in URL"); // Debug: Print code or message
-      if (code) exchangeCodeForToken(code);
-    };
+    if (code) {
+      console.log(`Code from URL: ${code}`); // Debug code
+      exchangeCodeForToken(code);
+    } else {
+      console.warn("No authorization code found in the URL");
+    }
+  }, [location.search]); // Dependency on location.search to re-run if the URL changes
 
-    setTimeout(fetchCodeWithDelay, 100); // Add slight delay to ensure URL params are ready
-  }, [location.search]); // Run every time the query string changes
-
-  // Function to initiate Twitch OAuth authorization
+  // Function to initiate Twitch OAuth flow
   const Auth = () => {
     const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
       REDIRECT_URI
     )}&scope=${SCOPES}&state=${STATE}`;
 
-    console.log("Redirecting to:", authUrl); // Debug: Print authorization URL
-    window.location.replace(authUrl); // Use replace to force full page reload
+    console.log("Redirecting to:", authUrl); // Debug: Authorization URL
+    window.location.replace(authUrl); // Full page reload
   };
 
   return (
@@ -87,3 +92,4 @@ const Login = () => {
 };
 
 export default Login;
+

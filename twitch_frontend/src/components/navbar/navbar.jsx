@@ -29,6 +29,8 @@ const Navbar = () => {
         setUserToken(false);
         setAccessToken("");
         console.log("Logout successful");
+        document.cookie = "auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "twilight-user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       } else {
         const errorData = await response.json(); // Get error details
         console.error("Error:", errorData); // Log error details
