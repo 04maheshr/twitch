@@ -1,20 +1,19 @@
+import { useContext } from "react";
 import { BsTwitch } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext"; // This import is correct
 
 const Navbar = () => {
-  const navigate = useNavigate(); 
-  const remo=()=>{
-    console.log("user session has been removed ");
-    localStorage.removeItem("userToken");
-    window.location.reload();
+  const { setUserToken } = useContext(UserContext);
 
-    
-  }
+  const handleLogout = () => {
+    setUserToken(false);
+  };
+  
   return (
-    <div className="container flex justify-between p-4  bg-navbargrey">
+    <div className="container flex justify-between p-4 bg-navbargrey">
       <div>
-        <Link to="/homepage"> {/* Make the Twitch icon a home link */}
+        <Link to="/">
           <BsTwitch className="text-4xl text-white" />
         </Link>
       </div>
@@ -22,12 +21,16 @@ const Navbar = () => {
       <div>
         <ul className="flex space-x-8 mr-3">
           <li className="text-white">
-            <Link to="/homepage">Home</Link> {/* Corrected to forward slash */}
+            <Link to="/">Home</Link>
           </li>
           <li className="text-white">
-            <Link to="/settings">settings</Link> {/* Corrected to forward slash */}
+            <Link to="/settings">Settings</Link>
           </li>
-          <li><button onClick={remo} className="text-white"> logout </button></li>
+          <li>
+            <button onClick={handleLogout} className="text-white">
+              Logout
+            </button>
+          </li>
         </ul>
       </div>
     </div>

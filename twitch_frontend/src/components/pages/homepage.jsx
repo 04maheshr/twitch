@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 
 const HomePage = () => {
@@ -11,7 +11,7 @@ const HomePage = () => {
     console.log(!showIcon); 
   };
 
-  const someFunction = () => {
+  const createroomfunc = () => {
     console.log("Go to meeting room");
     navigate("/createroom");
   };
@@ -19,6 +19,9 @@ const HomePage = () => {
     console.log("Go to meeting room");
     navigate("/join");
   };
+  
+
+  
 
   return (
     <div className="h-auto flex">
@@ -33,7 +36,7 @@ const HomePage = () => {
           <div className="pl-4 pt-10">
             <button 
               className="text-white bg-purple-800 hover:bg-purple-600 transition duration-300 ease-in-out p-2 rounded" 
-              onClick={someFunction}
+              onClick={createroomfunc}
             >
               Create Meeting
             </button>
