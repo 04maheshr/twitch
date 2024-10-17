@@ -1,18 +1,20 @@
 import { useContext } from "react";
 import { BsTwitch } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import { UserContext } from "../context/UserContext"; // This import is correct
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext"; // Ensure this import is correct
 
 const Navbar = () => {
   const { setUserToken, AccessToken, setAccessToken } = useContext(UserContext);
+  const navigate = useNavigate();
+  var a=localStorage.getItem("access_token")
 
   const handleLogout = async () => {
     try {
       const CLIENT_ID = "5yo6ymvaacda7679fed23c153eomoe";
-      const ACCESS_TOKEN = AccessToken;
+      const ACCESS_TOKEN = a;
 
       console.log("Access Token:", ACCESS_TOKEN); 
-      console.log("from the navbar");// Log the access token
+      console.log("from the navbar"); // Log the access token
 
       const response = await fetch("https://id.twitch.tv/oauth2/revoke", {
         method: 'POST',
@@ -26,11 +28,16 @@ const Navbar = () => {
       });
 
       if (response.ok) {
+        // Reset user token and access token in context
         setUserToken(false);
         setAccessToken("");
         console.log("Logout successful");
-        document.cookie = "auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = "twilight-user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+        // Optionally clear cookies (if needed, but generally not required for OAuth tokens)
+        clearAllCookies();
+
+        // Redirect to the login page or homepage
+        navigate("/"); // Redirect user to the homepage or login page
       } else {
         const errorData = await response.json(); // Get error details
         console.error("Error:", errorData); // Log error details
@@ -38,6 +45,19 @@ const Navbar = () => {
     } catch (error) {
       console.log("Fetch error:", error);
     }
+  };
+
+  // Function to clear all cookies (if you specifically set any)
+  const clearAllCookies = () => {
+    const cookies = document.cookie.split("; ");
+    for (let cookie of cookies) {
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      // Set cookie expiration date to the past for both root and current path
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"; // For root path
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.twitch.tv"; // For domain
+    }
+    console.log("All cookies cleared.");
   };
 
   return (
