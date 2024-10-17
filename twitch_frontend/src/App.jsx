@@ -1,17 +1,17 @@
 // App.js
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Homepage from "./components/pages/homepage";
 import Join from "./components/pages/join";
 import Login from "./components/pages/login";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "./components/context/UserContext";
 
 const App = () => {
-  const {userToken,setUserToken}=useContext(UserContext);  
+  const { userToken, setUserToken } = useContext(UserContext);
 
   return (
-    <Router> 
+    <Router>
       <div>
         {userToken ? (
           <>
@@ -24,7 +24,9 @@ const App = () => {
             </div>
           </>
         ) : (
-          <Login setUserToken={setUserToken} />
+          <Routes>
+            <Route path="/" element={<Login setUserToken={setUserToken} />} />
+          </Routes>
         )}
       </div>
     </Router>

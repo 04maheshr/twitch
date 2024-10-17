@@ -4,12 +4,40 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext"; // This import is correct
 
 const Navbar = () => {
-  const { setUserToken } = useContext(UserContext);
+  const { setUserToken, AccessToken, setAccessToken } = useContext(UserContext);
 
-  const handleLogout = () => {
-    setUserToken(false);
+  const handleLogout = async () => {
+    try {
+      const CLIENT_ID = "5yo6ymvaacda7679fed23c153eomoe";
+      const ACCESS_TOKEN = AccessToken;
+
+      console.log("Access Token:", ACCESS_TOKEN); 
+      console.log("from the navbar");// Log the access token
+
+      const response = await fetch("https://id.twitch.tv/oauth2/revoke", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          client_id: CLIENT_ID,
+          token: ACCESS_TOKEN,
+        }),
+      });
+
+      if (response.ok) {
+        setUserToken(false);
+        setAccessToken("");
+        console.log("Logout successful");
+      } else {
+        const errorData = await response.json(); // Get error details
+        console.error("Error:", errorData); // Log error details
+      }
+    } catch (error) {
+      console.log("Fetch error:", error);
+    }
   };
-  
+
   return (
     <div className="container flex justify-between p-4 bg-navbargrey">
       <div>
