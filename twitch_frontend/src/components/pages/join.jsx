@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom"; 
-import io from "socket.io-client"; // Import the socket.io client
+import Socket from "../../service/socket" // Import the socket.io client
 import TWITCHBG2 from './TWITCHBG2.jpg';
 
 const Join = () => {
@@ -54,9 +54,8 @@ const Join = () => {
         const data = await response.json(); // Parse the JSON response
         console.log("Join created successfully:", data);
 
-        // Establish WebSocket connection to the server
-        socketRef.current = io("http://localhost:4000"); // Connect to your server
-        socketRef.current.emit("joinRoom", roomId.current); // Emit an event to join the room
+       
+        Socket.emit("joinRoom", roomId.current); 
 
         navigate(`/room/${roomId.current}`); // Adjust as needed based on your URL structure
       } else {
@@ -70,11 +69,11 @@ const Join = () => {
     }
   };
 
-  // Clean up the socket connection when the component unmounts
+  
   useEffect(() => {
     return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
+      if (Socket) {
+        Socket.disconnect();
       }
     };
   }, []);

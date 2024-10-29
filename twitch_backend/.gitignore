@@ -22,4 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-twitch_backend\config\servicekey.json
+env
+

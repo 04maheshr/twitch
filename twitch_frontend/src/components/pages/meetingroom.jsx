@@ -1,15 +1,33 @@
 import { useState, useEffect } from "react";
 import { FaVideo, FaDesktop } from "react-icons/fa";
 import Chatbox from "../chatbox";
-import { useParams } from "react-router-dom";
-import Socket from "../../service/socket"; // Import socket.io-client
+import { useParams, useNavigate, useLocation } from "react-router-dom"; 
+import Socket from "../../service/socket"; 
 
 const MeetingRoom = () => {
   const { roomId } = useParams();
+  const navigate = useNavigate(); 
+  const location = useLocation(); 
 
   useEffect(() => {
-    // Establish socket connection
+    const handleBeforeUnload = () => {
+      
+      if (location.pathname.includes('/room')) {
+        navigate('/join');
+      }
+    };
+    // postapne measn back arrow in chrome 
+    window.addEventListener('popstate', handleBeforeUnload);
+
+   
+    return () => {
+      window.removeEventListener('popstate', handleBeforeUnload);
+    };
+  }, [navigate, location]);
+
+  useEffect(() => {
     Socket.connect();
+    console.log('Socket initialized:', Socket.id);
 
     const createRoomFun = async () => {
       try {
@@ -36,19 +54,19 @@ const MeetingRoom = () => {
 
       } catch (error) {
         console.error("Error creating room:", error);
-        alert(`Failed to create room: ${error.message}`); // Provide specific error message
+        alert(`Failed to create room: ${error.message}`);
       }
     };
 
     createRoomFun(); 
 
-    // Cleanup function to disconnect the socket
+    // Cleanup function to disconnect the socket when component unmounts
     return () => {
-      if (Socket.connected) {
+      if (Socket && Socket.connected) {
         Socket.disconnect();
       }
     };
-  }, [roomId]); 
+  }, [roomId]);
 
   return (
     <div>
@@ -58,4 +76,3 @@ const MeetingRoom = () => {
 };
 
 export default MeetingRoom;
-
