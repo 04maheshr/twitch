@@ -16,8 +16,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const MANAGEMENT_KEY = process.env.VITE_MANAGEMENT_KEY; // Replace with your management key
-const MANAGEMENT_SECRET = process.env.VITE_MANAGEMENT_SECRET
+
+
+const MANAGEMENT_KEY = process.env.MANAGEMENT_KEY; // Replace with your management key
+const MANAGEMENT_SECRET = process.env.MANAGEMENT_SECRET
 
 
 // Function to generate management token
@@ -52,8 +54,8 @@ app.post("/api/create-room", async (req, res) => {
       },
       body: JSON.stringify({
         name: roomName,
-        template_id: process.env.VITE_template_id, // Replace with your template ID
 
+        template_id: process.env.TEMPLATE_ID, // Replace with your template ID
       }),
     });
 
@@ -93,9 +95,7 @@ app.post("/api/create-room", async (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-
-    origin: process.env.VITE_URL, // Adjusted to match your frontend port
-
+    origin: process.env.URL, // Adjusted to match your frontend port
     methods: ['GET', 'POST']
   }
 });
