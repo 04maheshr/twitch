@@ -90,11 +90,9 @@ const HomePage = () => {
 
       {showIcon && (
         <div className="button-container">
-<<<<<<< HEAD
+
           <button className="action-button" onClick={() => navigate("/createroom")}>
-=======
-          <button className="action-button" onClick={openMeetingRoom}>
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
             Create Meeting
           </button>
           <button className="action-button" onClick={() => navigate("/join")}>

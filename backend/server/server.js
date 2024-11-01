@@ -7,24 +7,18 @@ const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fet
 const http = require('http');
 const { Server } = require('socket.io');
 const setupChat = require('./chat.js');
-<<<<<<< HEAD
+
 const dotenv=require('dotenv')
 dotenv.config();
-=======
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-
-<<<<<<< HEAD
 const MANAGEMENT_KEY = process.env.VITE_MANAGEMENT_KEY; // Replace with your management key
 const MANAGEMENT_SECRET = process.env.VITE_MANAGEMENT_SECRET
-=======
-const MANAGEMENT_KEY = '672119944944f067313a7f02'; // Replace with your management key
-const MANAGEMENT_SECRET = 'HUNY4pS4flva6djNeHYHyUsE78Oeenb5NddYxScbMm6wiehtP13S93XOVPsAPmwb6JX_hB5IyxXryIl6V1gA1mNrWC3SqEMIOUqdpL3rrJ9s9CA-dxUfyqGv70bek5ZXBpKJ30hmr8NGe1HUXA06rZhJTixoFtlTcPNQS50mED0='; // Replace with your management secret
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
 
 // Function to generate management token
 const generateManagementToken = async () => {
@@ -58,11 +52,8 @@ app.post("/api/create-room", async (req, res) => {
       },
       body: JSON.stringify({
         name: roomName,
-<<<<<<< HEAD
         template_id: process.env.VITE_template_id, // Replace with your template ID
-=======
-        template_id: "672119a81f1e5e9e06836a24", // Replace with your template ID
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
       }),
     });
 
@@ -102,11 +93,9 @@ app.post("/api/create-room", async (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-<<<<<<< HEAD
+
     origin: process.env.VITE_URL, // Adjusted to match your frontend port
-=======
-    origin: 'http://localhost:5173', // Adjusted to match your frontend port
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
     methods: ['GET', 'POST']
   }
 });

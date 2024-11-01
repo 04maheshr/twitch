@@ -2,19 +2,17 @@
 import { BrowserRouter as Router, Route, Routes, Navigate,useLocation } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import Homepage from "./components/pages/homepage";
-<<<<<<< HEAD
+
 import AppJoin from "./appjoin";
-=======
-import Join from "./components/pages/join";
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
+
 import Login from "./components/pages/login";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./components/Usercontext/UserContext";
 import App from "./App";
-<<<<<<< HEAD
+
 import AppCreate from "./appcreate";
-=======
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
 import {
     selectIsConnectedToRoom,
     useHMSActions,
@@ -58,13 +56,11 @@ const App1 = () => {
             <div className="bg-black">
               <Routes>
                 <Route path="/" element={<Homepage />} />
-<<<<<<< HEAD
+
                 <Route path="/join" element={<AppJoin />} />
                 <Route path="/createroom" element={<AppCreate/>}/>
-=======
-                <Route path="/join" element={<Join />} />
-                <Route path="/room" element={<App/>}/>
->>>>>>> 44999715a85ffa31bb54800f3a67be4fea329dc6
+
+
               </Routes>
             </div>
           </>
