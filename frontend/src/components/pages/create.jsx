@@ -32,7 +32,7 @@ function Create() {
     setErrorMessage("");
 
     try {
-      const response = await fetch(`${process.env.VITE_URL}api/create-room`, {
+      const response = await fetch(`${import.meta.env.VITE_URL}/api/create-room`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

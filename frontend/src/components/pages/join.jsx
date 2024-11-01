@@ -35,7 +35,7 @@ function Join() {
 
     try {
       // Call the backend API to create the room
-      const response = await fetch("http://localhost:5000/api/create-room", {
+      const response = await fetch(`${import.meta.env.VITE_URL}/api/create-room`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

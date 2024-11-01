@@ -18,7 +18,7 @@ const HomePage = () => {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Client-Id': '5yo6ymvaacda7679fed23c153eomoe'
+            'Client-Id': VITE
           }
         });
 

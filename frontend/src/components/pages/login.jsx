@@ -1,6 +1,6 @@
 const Login = () => {
-    const CLIENT_ID = "5yo6ymvaacda7679fed23c153eomoe";
-    const REDIRECT_URI = "http://localhost:5173/"; // Redirect to homepage after login
+    const CLIENT_ID = import.meta.env.VITE_APP_TWITCH_CLIENT_ID;
+    const REDIRECT_URI = `${import.meta.env.VITE_URL}/`; // Redirect to homepage after login
     const STATE = "c3ab8aa609ea11e793ae92361f002671";
   
     const SCOPES = encodeURIComponent(
@@ -8,6 +8,11 @@ const Login = () => {
     );
   
     const handleLogin = () => {
+      if (!CLIENT_ID) {
+        console.error("Twitch Client ID is not defined");
+        return;
+      }
+      console.log(import.meta.env.VITE_APP_TWITCH_CLIENT_ID);
       const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
         REDIRECT_URI
       )}&scope=${SCOPES}&state=${STATE}`;
