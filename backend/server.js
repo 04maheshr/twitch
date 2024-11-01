@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const http = require('http');
 const { Server } = require('socket.io');
-const setupChat = require('./chat.js');
+const setupChat = require('../chat.js');
 
 const dotenv=require('dotenv')
 dotenv.config();
