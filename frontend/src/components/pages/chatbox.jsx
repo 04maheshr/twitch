@@ -6,7 +6,7 @@ const Chatbox = () => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]); // State to store messages
+    const [messages, setMessages] = useState([]); 
 
     useEffect(() => {
         console.log("i am called");
